@@ -12,5 +12,12 @@ app.config(function ($urlRouterProvider, $stateProvider) {
             url: '/loginState',
             templateUrl: 'app/login/login.html',
         })
+    
+        .state('externalAuth',{
+            url: 'localhost:8080/login',
+            controller: function () {
+                $(location).attr('href', 'http://localhost:8080/login')
+            }
+        })
 
 })
