@@ -1,3 +1,7 @@
+notifications:
+  email:
+    - majewskimarcin@outlook.com
+    - marcin.zareba1@gmail.com
 language: java
 jdk:
   - oraclejdk8
