@@ -5,3 +5,7 @@ machine:
     PATH: $HOME/.m2/apache-maven-3.1.1/bin:$PATH
     M2_HOME: $HOME/.m2/apache-maven-3.1.1/
     M2: $HOME/.m2/apache-maven-3.1.1/bin/
+
+test:
+  override:
+    - cd FlatWallet/backend
