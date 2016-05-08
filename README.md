@@ -3,7 +3,7 @@
 Steps to run web app:
 ```
 npm install -g gulp bower
-cd flatWallet-webapp
+cd webapp
 npm install
 bower install
 gulp dev
