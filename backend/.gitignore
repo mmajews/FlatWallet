@@ -1,4 +1,6 @@
 /.idea
+/core/src/main/resources/static/node_modules
+/core/src/main/resources/static/bower_components
 /model/target
 /core/target
 /services/target
