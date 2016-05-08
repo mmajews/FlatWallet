@@ -1,20 +1,27 @@
 package app;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.web.bind.annotation.RestController;
 
-@Configuration
-@EnableAutoConfiguration
-@ComponentScan(basePackages = {
-		"app.configuration",
-		"com.flat.wallet.user" })
+@SpringBootApplication
 @EnableOAuth2Sso
-public class Application {
+@RestController
+@ComponentScan("com.flat.wallet.user")
+public class Application extends WebSecurityConfigurerAdapter {
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.antMatcher("/**").authorizeRequests().antMatchers("/", "/login**", "/webjars/**").permitAll().anyRequest()
+				.authenticated();
+	}
+
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class,args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }
