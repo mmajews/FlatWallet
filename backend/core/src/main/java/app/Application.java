@@ -19,11 +19,18 @@ public class Application extends WebSecurityConfigurerAdapter {
 		http
 				.antMatcher("/**")
 				.authorizeRequests()
-				.antMatchers("/", "/login**", "/webjars/**", "/bower_components/**", "/assets/**", "/app/**",
+				.antMatchers("/",
+						"/login**",
+						"/webjars/**",
+						"/bower_components/**",
+						"/assets/**",
+						"/app/**",
 						"/api/auth/isAuthenticated")
 				.permitAll()
 				.anyRequest()
 				.authenticated();
+
+		http.formLogin().defaultSuccessUrl("/", true);
 	}
 
 	public static void main(String[] args) {
