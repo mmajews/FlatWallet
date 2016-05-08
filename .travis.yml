@@ -1,7 +1,10 @@
 notifications:
   email:
-    - majewskimarcin@outlook.com
-    - marcin.zareba1@gmail.com
+    recipents:
+      - majewskimarcin@outlook.com
+      - marcin.zareba1@gmail.com
+    on_success: change
+    on_failure: always
 language: java
 jdk:
   - oraclejdk8
