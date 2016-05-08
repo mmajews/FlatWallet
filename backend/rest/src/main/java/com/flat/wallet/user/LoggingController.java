@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/auth")
 public class LoggingController {
+
 	@RequestMapping(value = "/logged", method = RequestMethod.GET)
-	public Authentication test() {
+	public Authentication getAuthenticationInfo() {
 		return SecurityContextHolder.getContext().getAuthentication();
 	}
 
-	@RequestMapping(value = "/isAuthenticated")
+	@RequestMapping(value = "/isAuthenticated", method = RequestMethod.GET)
 	public boolean isAuthenticated() {
 		return SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
 	}
