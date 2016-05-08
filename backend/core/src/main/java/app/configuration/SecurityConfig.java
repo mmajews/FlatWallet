@@ -1,4 +1,4 @@
-package com.flat.wallet.configuration;
+package app.configuration;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -14,6 +14,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/", "/login**")
 				.permitAll()
 				.anyRequest()
-				.authenticated();
+				.authenticated()
+				.and()
+				.logout()
+				.logoutSuccessUrl("/")
+				.permitAll();
 	}
 }

@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan(basePackages = {
-		"com.flat.wallet.configuration",
+		"app.configuration",
 		"com.flat.wallet.user" })
 @EnableOAuth2Sso
 public class Application {
