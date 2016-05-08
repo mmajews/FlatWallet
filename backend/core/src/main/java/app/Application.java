@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,9 +31,6 @@ public class Application extends WebSecurityConfigurerAdapter {
 	@SuppressWarnings("SpringJavaAutowiringInspection")
 	@Autowired
 	private OAuth2ClientContext oauth2ClientContext;
-
-	@Autowired
-	private ApplicationEventPublisher applicationEventPublisher;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -76,7 +72,6 @@ public class Application extends WebSecurityConfigurerAdapter {
 		filter.setRestTemplate(facebookTemplate);
 		filter.setTokenServices(
 				new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId()));
-		filter.setApplicationEventPublisher(applicationEventPublisher);
 		return filter;
 	}
 
