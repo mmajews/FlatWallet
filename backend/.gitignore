@@ -1,2 +1,7 @@
 /.idea
+/*target
+/model/target
+/core/target
+/services/target
+/rest/target
 *.iml
