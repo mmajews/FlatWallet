@@ -20,3 +20,4 @@ bower_components/
 hs_err_pid*
 *.log
 *.concat.js
+/backend/app/target
