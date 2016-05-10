@@ -1,4 +1,4 @@
-package com.flat.wallet.user;
+package com.flat.wallet.rest.user;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
