@@ -1,6 +1,6 @@
 package com.flat.wallet.app.auth;
 
-import com.flat.wallet.app.TokenAuthenticationService;
+import com.flat.wallet.app.token.TokenAuthenticationService;
 import com.flat.wallet.model.UserAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
