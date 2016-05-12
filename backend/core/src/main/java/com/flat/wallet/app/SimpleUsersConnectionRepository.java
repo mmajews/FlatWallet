@@ -11,7 +11,7 @@ import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.mem.TemporaryConnectionRepository;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,9 +39,9 @@ public class SimpleUsersConnectionRepository implements UsersConnectionRepositor
             User user = userService.loadUserByConnectionKey(connection.getKey());
             user.setAccessToken(connection.createData().getAccessToken());
             userService.updateUserDetails(user);
-            return Arrays.asList(user.getUserId());
+            return Collections.singletonList(user.getUserId());
         } catch (AuthenticationException ae) {
-            return Arrays.asList(connectionSignUp.execute(connection));
+            return Collections.singletonList(connectionSignUp.execute(connection));
         }
     }
 

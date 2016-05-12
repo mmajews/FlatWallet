@@ -1,5 +1,14 @@
 package com.flat.wallet.app;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flat.wallet.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -7,15 +16,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Date;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flat.wallet.model.User;
-
 public final class TokenHandler {
+	private static final Logger logger = LoggerFactory.getLogger(TokenHandler.class);
 
 	private static final String HMAC_ALGO = "HmacSHA256";
 	private static final String SEPARATOR = ".";
@@ -23,12 +25,13 @@ public final class TokenHandler {
 
 	private final Mac hmac;
 
+
 	public TokenHandler(byte[] secretKey) {
 		try {
 			hmac = Mac.getInstance(HMAC_ALGO);
 			hmac.init(new SecretKeySpec(secretKey, HMAC_ALGO));
 		} catch (NoSuchAlgorithmException | InvalidKeyException e) {
-			throw new IllegalStateException("failed to initialize HMAC: " + e.getMessage(), e);
+			throw new IllegalStateException("Failed to initialize HMAC: " + e.getMessage(), e);
 		}
 	}
 
@@ -47,12 +50,14 @@ public final class TokenHandler {
 					}
 				}
 			} catch (IllegalArgumentException e) {
-				//log tempering attempt here
+				logger.error("Error while parsing user token", e);
 			}
 		}
 		return null;
 	}
 
+	//String builder much more readable
+	@SuppressWarnings("StringBufferReplaceableByString")
 	public String createTokenForUser(User user) {
 		byte[] userBytes = toJSON(user);
 		byte[] hash = createHmac(userBytes);

@@ -1,16 +1,23 @@
 package com.flat.wallet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.social.security.SocialUserDetails;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.springframework.social.security.SocialUserDetails;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "user_account", uniqueConstraints = { @UniqueConstraint(columnNames = { "username" }) })
@@ -102,7 +109,7 @@ public class User implements SocialUserDetails {
 
 	public void grantRole(UserRole role) {
 		if (authorities == null) {
-			authorities = new HashSet<UserAuthority>();
+			authorities = new HashSet<>();
 		}
 		authorities.add(role.asAuthorityFor(this));
 	}

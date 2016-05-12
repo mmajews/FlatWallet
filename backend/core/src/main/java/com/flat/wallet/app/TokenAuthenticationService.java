@@ -1,15 +1,15 @@
 package com.flat.wallet.app;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.DatatypeConverter;
-
 import com.flat.wallet.model.User;
 import com.flat.wallet.model.UserAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.DatatypeConverter;
 
 @Service
 public class TokenAuthenticationService {
@@ -29,10 +29,6 @@ public class TokenAuthenticationService {
 		final User user = authentication.getDetails();
 		user.setExpires(System.currentTimeMillis() + TEN_DAYS);
 		final String token = tokenHandler.createTokenForUser(user);
-
-		// Put the token into a cookie because the client can't capture response
-		// headers of redirects / full page reloads.
-		// (Its reloaded as a result of this response triggering a redirect back to "/")
 		response.addCookie(createCookieForToken(token));
 	}
 
