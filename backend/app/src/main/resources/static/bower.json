@@ -1,6 +1,7 @@
 {
   "name": "static",
   "homepage": "https://github.com/mmajews/FlatWallet",
+  "private" : true,
   "authors": [
   ],
   "description": "",
