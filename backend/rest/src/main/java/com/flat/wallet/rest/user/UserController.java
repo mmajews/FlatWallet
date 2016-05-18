@@ -1,9 +1,9 @@
 package com.flat.wallet.rest.user;
 
-import com.flat.wallet.app.UserRepository;
 import com.flat.wallet.model.User;
 import com.flat.wallet.model.UserAuthentication;
 import com.flat.wallet.model.UserRole;
+import com.flat.wallet.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

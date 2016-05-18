@@ -1,4 +1,4 @@
-package com.flat.wallet.app;
+package com.flat.wallet.services;
 
 import com.flat.wallet.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;

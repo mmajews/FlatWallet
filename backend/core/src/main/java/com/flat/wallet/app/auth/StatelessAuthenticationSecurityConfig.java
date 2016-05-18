@@ -1,7 +1,7 @@
 package com.flat.wallet.app.auth;
 
 import com.flat.wallet.app.SocialAuthenticationSuccessHandler;
-import com.flat.wallet.app.SocialUserService;
+import com.flat.wallet.services.SocialUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
