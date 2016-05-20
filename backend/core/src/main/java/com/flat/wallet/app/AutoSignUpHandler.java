@@ -1,7 +1,7 @@
 package com.flat.wallet.app;
 
 import com.flat.wallet.model.User;
-import com.flat.wallet.model.UserRole;
+import com.flat.wallet.model.auth.UserRole;
 import com.flat.wallet.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;

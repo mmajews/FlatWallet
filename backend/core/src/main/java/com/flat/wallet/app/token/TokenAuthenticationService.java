@@ -1,7 +1,7 @@
 package com.flat.wallet.app.token;
 
 import com.flat.wallet.model.User;
-import com.flat.wallet.model.UserAuthentication;
+import com.flat.wallet.model.auth.UserAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

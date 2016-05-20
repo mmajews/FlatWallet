@@ -1,6 +1,8 @@
 package com.flat.wallet.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.flat.wallet.model.auth.UserAuthority;
+import com.flat.wallet.model.auth.UserRole;
 import org.springframework.social.security.SocialUserDetails;
 
 import javax.persistence.CascadeType;
