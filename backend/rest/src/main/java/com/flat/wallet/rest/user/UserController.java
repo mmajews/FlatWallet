@@ -3,8 +3,9 @@ package com.flat.wallet.rest.user;
 import com.flat.wallet.model.User;
 import com.flat.wallet.model.auth.UserAuthentication;
 import com.flat.wallet.model.auth.UserRole;
-import com.flat.wallet.repositories.UserRepository;
+import com.flat.wallet.services.SocialUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -20,7 +21,8 @@ import java.util.List;
 public class UserController {
 
 	@Autowired
-	UserRepository userRepository;
+	@Qualifier("userService")
+	private SocialUserService userService;
 
 	@RequestMapping(value = "/api/user/current", method = RequestMethod.GET)
 	public User getCurrent() {
@@ -38,7 +40,7 @@ public class UserController {
 		}
 
 		user.grantRole(role);
-		userRepository.saveAndFlush(user);
+		userService.saveAndFlush(user);
 		return new ResponseEntity<>("role granted", HttpStatus.OK);
 	}
 
@@ -49,12 +51,12 @@ public class UserController {
 		}
 
 		user.revokeRole(role);
-		userRepository.saveAndFlush(user);
+		userService.saveAndFlush(user);
 		return new ResponseEntity<>("role revoked", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/admin/api/user", method = RequestMethod.GET)
 	public List<User> list() {
-		return userRepository.findAll();
+		return userService.findAll();
 	}
 }

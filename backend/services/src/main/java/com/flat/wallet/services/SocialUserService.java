@@ -5,8 +5,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.security.SocialUserDetailsService;
 
-public interface SocialUserService extends SocialUserDetailsService, UserDetailsService {
+import java.util.List;
 
+public interface SocialUserService extends SocialUserDetailsService, UserDetailsService {
+    void saveAndFlush(User user);
+
+    List<User> findAll();
     User loadUserByConnectionKey(ConnectionKey connectionKey);
     User loadUserByUserId(String userId);
     User loadUserByUsername(String username);
