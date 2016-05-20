@@ -9,7 +9,7 @@ import org.springframework.social.connect.ConnectionKey;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Service("userService")
 @Transactional
 public class UserService implements SocialUserService {
 
@@ -50,5 +50,9 @@ public class UserService implements SocialUserService {
 		}
 		detailsChecker.check(user);
 		return user;
+	}
+
+	public UserService() {
+		System.out.println();
 	}
 }
