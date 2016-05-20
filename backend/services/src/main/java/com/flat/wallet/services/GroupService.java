@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +27,12 @@ public class GroupService {
 
 	@Transactional(readOnly = true)
 	public Group getGroupById(Long id) {
-		return groupRepository.findById(id);
+		final Group group = groupRepository.findById(id);
+		User user = userService.getCurrentUser();
+		if (group.ifParticipant(user)) {
+			return group;
+		}
+		throw new BadCredentialsException("You are not authorized to get this group");
 	}
 
 	public Group createNewGroup(Long userId) throws EntityNotFound {

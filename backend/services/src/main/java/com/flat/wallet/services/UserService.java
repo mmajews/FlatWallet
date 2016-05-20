@@ -1,9 +1,12 @@
 package com.flat.wallet.services;
 
 import com.flat.wallet.model.User;
+import com.flat.wallet.model.auth.UserAuthentication;
 import com.flat.wallet.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.social.connect.ConnectionKey;
 import org.springframework.stereotype.Service;
@@ -55,6 +58,15 @@ public class UserService implements SocialUserService {
 	@Override
 	public void updateUserDetails(User user) {
 		userRepository.save(user);
+	}
+
+	@Override
+	public User getCurrentUser() {
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication instanceof UserAuthentication) {
+			return ((UserAuthentication) authentication).getDetails();
+		}
+		return new User(); //anonymous user support
 	}
 
 	private User checkUser(User user) {

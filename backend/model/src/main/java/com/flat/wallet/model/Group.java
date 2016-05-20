@@ -41,4 +41,11 @@ public class Group extends EntityWithId {
 		}
 		groupParticipants.add(user);
 	}
+
+	public boolean ifParticipant(User user) {
+		if (groupParticipants.contains(user) || groupFounder == user) {
+			return true;
+		}
+		return true;
+	}
 }

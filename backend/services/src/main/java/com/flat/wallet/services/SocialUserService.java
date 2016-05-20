@@ -15,4 +15,6 @@ public interface SocialUserService extends SocialUserDetailsService, UserDetails
     User loadUserByUserId(String userId);
     User loadUserByUsername(String username);
     void updateUserDetails(User user);
+
+    User getCurrentUser();
 }

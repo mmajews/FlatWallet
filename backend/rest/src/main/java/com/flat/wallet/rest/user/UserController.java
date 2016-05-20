@@ -1,15 +1,12 @@
 package com.flat.wallet.rest.user;
 
 import com.flat.wallet.model.User;
-import com.flat.wallet.model.auth.UserAuthentication;
 import com.flat.wallet.model.auth.UserRole;
 import com.flat.wallet.services.SocialUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,11 +23,7 @@ public class UserController {
 
 	@RequestMapping(value = "/api/user/current", method = RequestMethod.GET)
 	public User getCurrent() {
-		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication instanceof UserAuthentication) {
-			return ((UserAuthentication) authentication).getDetails();
-		}
-		return new User(); //anonymous user support
+		return userService.getCurrentUser();
 	}
 
 	@RequestMapping(value = "/admin/api/user/{user}/grant/role/{role}", method = RequestMethod.POST)
