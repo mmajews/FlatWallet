@@ -1,9 +1,6 @@
 package com.flat.wallet.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -12,11 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "groups")
-public class Group {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long id;
+public class Group extends EntityWithId {
 
 	@NotNull
 	@OneToOne

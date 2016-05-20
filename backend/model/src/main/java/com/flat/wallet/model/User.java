@@ -8,9 +8,6 @@ import org.springframework.social.security.SocialUserDetails;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -23,11 +20,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user_account", uniqueConstraints = { @UniqueConstraint(columnNames = { "username" }) })
-public class User implements SocialUserDetails {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long id;
+public class User extends EntityWithId implements SocialUserDetails {
 
 	@NotNull
 	@JsonIgnore
