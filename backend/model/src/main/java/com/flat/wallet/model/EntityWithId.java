@@ -12,4 +12,7 @@ public abstract class EntityWithId {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	protected Long id;
 
+	public Long getId() {
+		return id;
+	}
 }

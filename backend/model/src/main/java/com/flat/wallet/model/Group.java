@@ -25,6 +25,15 @@ public class Group extends EntityWithId {
 	@OneToMany
 	private List<User> groupParticipants = new ArrayList<>();
 
+	public Group() {
+	}
+
+	;
+
+	public Group(User user) {
+		groupFounder = user;
+	}
+
 	public void addParticipant(User user) {
 		Preconditions.checkNotNull(user, "User cannot be null while adding to group");
 		if (groupParticipants.contains(user)) {

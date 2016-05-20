@@ -29,8 +29,14 @@ public class GroupService {
 		return groupRepository.findById(id);
 	}
 
-	public void createNewGroup(Group group) {
+	public Group createNewGroup(Long userId) throws EntityNotFound {
+		User user = userService.loadUserByUserId(userId.toString());
+		if (user == null) {
+			throw new EntityNotFound(User.class, userId);
+		}
+		Group group = new Group(user);
 		groupRepository.save(group);
+		return group;
 	}
 
 	public void addParticipantToGroup(Long groupId, Long userId) throws EntityNotFound {

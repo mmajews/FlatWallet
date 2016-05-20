@@ -64,8 +64,4 @@ public class UserService implements SocialUserService {
 		detailsChecker.check(user);
 		return user;
 	}
-
-	public UserService() {
-		System.out.println();
-	}
 }
