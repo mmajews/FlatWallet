@@ -8,4 +8,4 @@ notifications:
 language: java
 jdk:
   - oraclejdk8
-script: cd backend && mvn clean install
+script: mvn clean install
