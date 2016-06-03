@@ -1,6 +1,3 @@
-/**
- * Created by Marcin on 31.05.2016.
- */
 app.factory('Authentication', function ($resource) {
     return $resource('/api', {}, {
         getSocialDetails: {
@@ -13,4 +10,4 @@ app.factory('Authentication', function ($resource) {
             url: '/api/user/current'
         }
     })
-})
+});
