@@ -14,6 +14,7 @@
     <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
     <link rel="stylesheet" href="assets/css/styles.css"/>
+
 </head>
 <body ng-app="flatWallet">
 
@@ -34,6 +35,9 @@
         <!-- Links -->
         <section>
             <ul class="links">
+                <li>
+                    <h3> You are logged in as : {{username}}</h3>
+                </li>
                 <li>
                     <a href="#">
                         <h3>Należności</h3>
@@ -57,21 +61,20 @@
         </section>
 
     </section>
-
-    <a ui-sref="home"></a>
     <div ui-view></div>
 
 <!-- Scripts -->
-<script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/angular-resource/angular-resource.js"></script>
-<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/skel.min.js"></script>
-<script src="assets/js/util.js"></script>
-<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/skel.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
     <script src="assets/js/main.js"></script>
     <script src="app/app.js"></script>
-
-
+    <script src="app/controllers/AuthController.js" type="application/javascript"></script>
+    <script src="app/AuthService.js" type="application/javascript"></script>
 </body>
 </html>
