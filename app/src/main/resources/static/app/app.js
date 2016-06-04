@@ -60,13 +60,13 @@ var app = angular.module('flatWallet', ['ui.router', 'ngResource', 'ngCookies'])
 
 app.run(function ($rootScope, Authentication, $state, $cookies, TokenStorage, $http) {
     $rootScope.username = null;
-    var authCookie = $cookies['AUTH-TOKEN'];
-    if (authCookie) {
-        TokenStorage.store(authCookie);
-        delete $cookies['AUTH-TOKEN'];
-    }
+    // var authCookie = $cookies['AUTH-TOKEN'];
+    // if (authCookie) {
+    //     TokenStorage.store(authCookie);
+    //     delete $cookies['AUTH-TOKEN'];
+    // }
     $http({method: 'GET', url: '/api/user/current', headers: {
-        'X-AUTH-TOKEN': 'eyJpZCI6MTAsInVzZXJuYW1lIjoiTWFyY2luIiwiZXhwaXJlcyI6MTQ2NTkyODU3MDU2Miwicm9sZXMiOlsiVVNFUiIsIkFETUlOIl19.d40sWxqZPFALSxpext4PcDTP9W9oljnGG6FhCQrN61g'}
+        'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
     }).success(function (user) {
         console.log(user);
         if (user.username) {
