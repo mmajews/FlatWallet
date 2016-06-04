@@ -28,7 +28,7 @@ var app = angular.module('flatWallet', ['ui.router', 'ngResource', 'ngCookies'])
             return $q.reject(error);
         }
     };
-}).config(function($httpProvider, $urlRouterProvider, $stateProvider) {
+    }).config(function($httpProvider, $urlRouterProvider, $stateProvider) {
     $httpProvider.interceptors.push('TokenAuthInterceptor');
     $urlRouterProvider.otherwise('/');
     $stateProvider.state('home', {
@@ -39,35 +39,51 @@ var app = angular.module('flatWallet', ['ui.router', 'ngResource', 'ngCookies'])
         .state('loginState', {
             url: '/loginState',
             templateUrl: 'app/login/login.html',
-            controller: function ($scope, Authentication) {
+            controller: function ($scope) {
 
-                // console.log();
-                // console.log(Authentication.getCurrent())
+                $scope.logout = function () {
+                    // Just clear the local storage
+                    console.log("Logging out");
+                    TokenStorage.clear();
+                    $rootScope.authenticated = false;
+                    $rootScope.username = null;
+                };
             }
         })
 
+        .state('group',{
+            url: '/group',
+            templateUrl: 'app/group/createGroup.html'
+        })
+    
 });
 
 app.run(function ($rootScope, Authentication, $state, $cookies, TokenStorage, $http) {
-    $rootScope.authenticated = false
-    $rootScope.username = "";
+    $rootScope.username = null;
     var authCookie = $cookies['AUTH-TOKEN'];
     if (authCookie) {
         TokenStorage.store(authCookie);
         delete $cookies['AUTH-TOKEN'];
     }
-    $http.get('/api/user/current').success(function (user) {
+    $http({method: 'GET', url: '/api/user/current', headers: {
+        'X-AUTH-TOKEN': 'eyJpZCI6MTAsInVzZXJuYW1lIjoiTWFyY2luIiwiZXhwaXJlcyI6MTQ2NTkyODU3MDU2Miwicm9sZXMiOlsiVVNFUiIsIkFETUlOIl19.d40sWxqZPFALSxpext4PcDTP9W9oljnGG6FhCQrN61g'}
+    }).success(function (user) {
+        console.log(user);
         if (user.username) {
             $rootScope.authenticated = true;
             $rootScope.username = user.username;
-            // console.log($rootScope.username);
-            // For display purposes only
-            $rootScope.token = JSON.parse(atob(TokenStorage.retrieve().split('.')[0]));
+            console.log("if");
+            $state.go('home');
+            // $rootScope.token = JSON.parse(atob(TokenStorage.retrieve().split('.')[0]));
+        } else {
+            console.log("else")
+            $rootScope.authenticated = false;
+            $state.go('loginState');
         }
     });
-
-    if($rootScope.authenticated == false) $state.go('loginState')
-    else $state.go('home')
-
-})
+    
+    // console.log($rootScope.username);
+    // if($rootScope.username == null) $state.go('loginState');
+    // else $state.go('home');
+});
 
