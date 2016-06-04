@@ -1,6 +1,5 @@
 package com.flat.wallet.app.auth;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.social.SocialWebAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -14,10 +13,6 @@ import javax.servlet.Filter;
 @Configuration
 @ComponentScan
 public class StatelessAuthentication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(StatelessAuthentication.class, args);
-	}
 
 	@Bean
 	public Filter characterEncodingFilter() {
