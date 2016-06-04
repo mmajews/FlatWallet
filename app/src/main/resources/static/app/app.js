@@ -38,17 +38,7 @@ var app = angular.module('flatWallet', ['ui.router', 'ngResource', 'ngCookies'])
 
         .state('loginState', {
             url: '/loginState',
-            templateUrl: 'app/login/login.html',
-            controller: function ($scope) {
-
-                $scope.logout = function () {
-                    // Just clear the local storage
-                    console.log("Logging out");
-                    TokenStorage.clear();
-                    $rootScope.authenticated = false;
-                    $rootScope.username = null;
-                };
-            }
+            templateUrl: 'app/login/login.html'
         })
 
         .state('group',{
@@ -65,6 +55,7 @@ app.run(function ($rootScope, Authentication, $state, $cookies, TokenStorage, $h
     //     TokenStorage.store(authCookie);
     //     delete $cookies['AUTH-TOKEN'];
     // }
+    console.log($cookies.get('AUTH-TOKEN'));
     $http({method: 'GET', url: '/api/user/current', headers: {
         'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
     }).success(function (user) {
@@ -81,9 +72,16 @@ app.run(function ($rootScope, Authentication, $state, $cookies, TokenStorage, $h
             $state.go('loginState');
         }
     });
-    
-    // console.log($rootScope.username);
-    // if($rootScope.username == null) $state.go('loginState');
-    // else $state.go('home');
 });
+
+app.controller('IndexCtrl', function ($rootScope, $cookies, TokenStorage) {
+    $rootScope.logout = function () {
+        console.log("Logout");
+        // Just clear the local storage
+        TokenStorage.clear();
+        $rootScope.authenticated = false;
+        $rootScope.username = null;
+        $cookies.remove('AUTH-TOKEN');
+    };
+})
 
