@@ -12,8 +12,6 @@ app.controller('AuthCtrl', function ($scope, $rootScope, $http, $cookies, TokenS
             if (user.username) {
                 $rootScope.authenticated = true;
                 $scope.username = user.username;
-
-                // For display purposes only
                 $scope.token = JSON.parse(atob(TokenStorage.retrieve().split('.')[0]));
             }
         });

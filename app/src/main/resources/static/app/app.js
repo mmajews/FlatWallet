@@ -1,26 +1,26 @@
-var app = angular.module('flatWallet', ['ui.router', 'ngResource', 'ngCookies']).factory('TokenStorage', function() {
+var app = angular.module('flatWallet', ['ui.router', 'ngResource', 'ngCookies']).factory('TokenStorage', function () {
     var storageKey = 'auth_token';
     return {
-        store : function(token) {
+        store: function (token) {
             return localStorage.setItem(storageKey, token);
         },
-        retrieve : function() {
+        retrieve: function () {
             return localStorage.getItem(storageKey);
         },
-        clear : function() {
+        clear: function () {
             return localStorage.removeItem(storageKey);
         }
     };
-}).factory('TokenAuthInterceptor', function($q, $rootScope, TokenStorage) {
+}).factory('TokenAuthInterceptor', function ($q, $rootScope, TokenStorage) {
     return {
-        request: function(config) {
+        request: function (config) {
             var authToken = TokenStorage.retrieve();
             if (authToken) {
                 config.headers['X-AUTH-TOKEN'] = authToken;
             }
             return config;
         },
-        responseError: function(error) {
+        responseError: function (error) {
             if (error.status === 401 || error.status === 403) {
                 TokenStorage.clear();
                 $rootScope.authenticated = false;
@@ -28,7 +28,7 @@ var app = angular.module('flatWallet', ['ui.router', 'ngResource', 'ngCookies'])
             return $q.reject(error);
         }
     };
-    }).config(function($httpProvider, $urlRouterProvider, $stateProvider) {
+}).config(function ($httpProvider, $urlRouterProvider, $stateProvider) {
     $httpProvider.interceptors.push('TokenAuthInterceptor');
     $urlRouterProvider.otherwise('/');
     $stateProvider.state('home', {
@@ -41,11 +41,10 @@ var app = angular.module('flatWallet', ['ui.router', 'ngResource', 'ngCookies'])
             templateUrl: 'app/login/login.html'
         })
 
-        .state('group',{
+        .state('group', {
             url: '/group',
-            templateUrl: 'app/group/createGroup.html'
+            templateUrl: 'app/group/groups.html'
         })
-    
 });
 
 app.run(function ($rootScope, Authentication, $state, $cookies, TokenStorage, $http) {
@@ -56,8 +55,10 @@ app.run(function ($rootScope, Authentication, $state, $cookies, TokenStorage, $h
     //     delete $cookies['AUTH-TOKEN'];
     // }
     console.log($cookies.get('AUTH-TOKEN'));
-    $http({method: 'GET', url: '/api/user/current', headers: {
-        'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
+    $http({
+        method: 'GET', url: '/api/user/current', headers: {
+            'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')
+        }
     }).success(function (user) {
         console.log(user);
         if (user.username) {
