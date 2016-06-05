@@ -5,6 +5,29 @@
     <title>Groups</title>
 </head>
 <body>
-Your groups:
+<div id="wrapper">
+
+    <div id="main">
+        <article class="post">
+            <h1>Groups list</h1>
+        </article>
+        <article class="post">
+            <h1>Groups you belong to:</h1>
+            <footer ng-repeat="group in allGroups">
+                <h2> {{group.name}}</h2>
+            </footer>
+        </article>
+
+        <article class="post">
+            <h1>Create new group:</h1>
+            <section>
+                <form class="input">
+                    <input ng-model="newGroupName" type="text" placeholder="Enter the name of the group"/>
+                    <button type="submit" ng-click="createNewGroup()">Create</button>
+                </form>
+            </section>
+        </article>
+    </div>
+</div>
 </body>
 </html>

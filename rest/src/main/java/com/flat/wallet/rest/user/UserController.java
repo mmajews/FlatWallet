@@ -52,4 +52,5 @@ public class UserController {
 	public List<User> list() {
 		return userService.findAll();
 	}
+
 }

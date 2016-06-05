@@ -22,7 +22,9 @@ public class Group extends EntityWithId {
 	@OneToOne
 	private User groupFounder;
 
-	@OneToMany
+	private String name;
+
+	@OneToMany(mappedBy = "groups")
 	private List<User> groupParticipants = new ArrayList<>();
 
 	public Group() {
@@ -47,5 +49,13 @@ public class Group extends EntityWithId {
 			return true;
 		}
 		return true;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

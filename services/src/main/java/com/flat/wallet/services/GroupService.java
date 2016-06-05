@@ -4,6 +4,7 @@ import com.flat.wallet.exceptions.EntityNotFound;
 import com.flat.wallet.model.Group;
 import com.flat.wallet.model.User;
 import com.flat.wallet.repositories.GroupRepository;
+import com.flat.wallet.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -25,8 +28,11 @@ public class GroupService {
 	@Autowired
 	private GroupRepository groupRepository;
 
+	@Autowired
+	private UserRepository userRepository;
+
 	@Transactional(readOnly = true)
-	public Group getGroupById(Long id) {
+	public Group getGroupById(Long id) throws Exception {
 		final Group group = groupRepository.findById(id);
 		User user = userService.getCurrentUser();
 		if (group.ifParticipant(user)) {
@@ -35,17 +41,34 @@ public class GroupService {
 		throw new BadCredentialsException("You are not authorized to get this group");
 	}
 
-	public Group createNewGroup(Long userId) throws EntityNotFound {
-		User user = userService.loadUserByUserId(userId.toString());
-		if (user == null) {
-			throw new EntityNotFound(User.class, userId);
-		}
-		Group group = new Group(user);
+	public List<Group> getGroups() throws Exception {
+		User currentUser = userRepository.findById(getCurrentUser().getId());
+		return currentUser.getGroups();
+	}
+
+	public Group createNewGroup(String newGroupName) throws Exception {
+		User currentUser = getCurrentUser();
+		Group group = new Group(currentUser);
+		group.setName(newGroupName);
 		groupRepository.save(group);
+
+		currentUser = userRepository.findById(currentUser.getId());
+		currentUser.getGroups().add(group);
+		userService.updateUserDetails(currentUser);
 		return group;
 	}
 
-	public void addParticipantToGroup(Long groupId, Long userId) throws EntityNotFound {
+	private User getCurrentUser() throws Exception {
+		User currentUser = userService.getCurrentUser();
+		if (currentUser == null) {
+			logger.error("No user logged, aborting.");
+			//// FIXME: 05.06.16 do something about exceptions
+			throw new Exception("You are not permitted to view this site");
+		}
+		return currentUser;
+	}
+
+	public void addParticipantToGroup(Long groupId, Long userId) throws Exception {
 		Group group = getGroupById(groupId);
 		if (group == null) {
 			throw new EntityNotFound(Group.class, groupId);

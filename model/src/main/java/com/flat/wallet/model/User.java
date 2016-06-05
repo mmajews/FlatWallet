@@ -14,8 +14,10 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,20 +25,20 @@ import java.util.Set;
 public class User extends EntityWithId implements SocialUserDetails {
 
 	@NotNull
-	@JsonIgnore
 	private String providerId;
 
 	@NotNull
-	@JsonIgnore
 	private String providerUserId;
 
 	@NotNull
-	@JsonIgnore
 	private String accessToken;
 
 	@NotNull
 	@Size(min = 4, max = 30)
 	private String username;
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Group> groups = new ArrayList<>();
 
 	@Transient
 	private long expires;
@@ -184,5 +186,13 @@ public class User extends EntityWithId implements SocialUserDetails {
 
 	public void setAccessToken(String accessToken) {
 		this.accessToken = accessToken;
+	}
+
+	public List<Group> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<Group> groups) {
+		this.groups = groups;
 	}
 }

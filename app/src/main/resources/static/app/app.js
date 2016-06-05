@@ -41,9 +41,10 @@ var app = angular.module('flatWallet', ['ui.router', 'ngResource', 'ngCookies'])
             templateUrl: 'app/login/login.html'
         })
 
-        .state('group', {
-            url: '/group',
-            templateUrl: 'app/group/groups.html'
+        .state('groups', {
+            url: '/groups',
+            templateUrl: 'app/group/groups.html',
+            controller: 'GroupListCtrl'
         })
 });
 
@@ -84,5 +85,5 @@ app.controller('IndexCtrl', function ($rootScope, $cookies, TokenStorage) {
         $rootScope.username = null;
         $cookies.remove('AUTH-TOKEN');
     };
-})
+});
 
