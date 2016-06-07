@@ -37,6 +37,7 @@ public class User extends EntityWithId implements SocialUserDetails {
 	@Size(min = 4, max = 30)
 	private String username;
 
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Group> groups = new ArrayList<>();
 
