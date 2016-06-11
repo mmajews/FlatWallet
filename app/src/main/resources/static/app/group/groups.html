@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title>Groups</title>
 </head>
+<style>
+    a {
+        color: blue;
+        text-decoration: none; /* no underline */
+    }
+</style>
 <body>
 <div id="wrapper">
 
@@ -14,7 +20,7 @@
         <article class="post">
             <h1>Groups you belong to:</h1>
             <footer ng-repeat="group in allGroups">
-                <h2> {{group.name}}</h2>
+               <a ui-sref="group({groupId: group.id})"> <h3> {{group.name}}</h3></a>
             </footer>
         </article>
 

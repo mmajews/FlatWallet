@@ -8,6 +8,7 @@ import org.springframework.social.security.SocialUserDetails;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -28,9 +29,11 @@ public class User extends EntityWithId implements SocialUserDetails {
 	private String providerId;
 
 	@NotNull
+	@JsonIgnore
 	private String providerUserId;
 
 	@NotNull
+	@JsonIgnore
 	private String accessToken;
 
 	@NotNull
@@ -38,7 +41,7 @@ public class User extends EntityWithId implements SocialUserDetails {
 	private String username;
 
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Group> groups = new ArrayList<>();
 
 	@Transient

@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -24,13 +24,11 @@ public class Group extends EntityWithId {
 
 	private String name;
 
-	@OneToMany(mappedBy = "groups")
+	@ManyToMany
 	private List<User> groupParticipants = new ArrayList<>();
 
 	public Group() {
-	}
-
-	;
+	};
 
 	public Group(User user) {
 		groupFounder = user;
@@ -57,5 +55,13 @@ public class Group extends EntityWithId {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public User getGroupFounder() {
+		return groupFounder;
+	}
+
+	public List<User> getGroupParticipants() {
+		return groupParticipants;
 	}
 }

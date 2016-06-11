@@ -31,20 +31,24 @@ var app = angular.module('flatWallet', ['ui.router', 'ngResource', 'ngCookies'])
 }).config(function ($httpProvider, $urlRouterProvider, $stateProvider) {
     $httpProvider.interceptors.push('TokenAuthInterceptor');
     $urlRouterProvider.otherwise('/');
-    $stateProvider.state('home', {
-        url: '/',
-        templateUrl: 'app/home/home.html'
-    })
-
+    $stateProvider
+        .state('home', {
+            url: '/',
+            templateUrl: 'app/home/home.html'
+        })
         .state('loginState', {
             url: '/loginState',
             templateUrl: 'app/login/login.html'
         })
-
         .state('groups', {
             url: '/groups',
             templateUrl: 'app/group/groups.html',
             controller: 'GroupListCtrl'
+        })
+        .state('group', {
+            url: '/groups/:groupId',
+            templateUrl: 'app/group/group.html',
+            controller: 'GroupCtrl'
         })
 });
 
@@ -69,7 +73,7 @@ app.run(function ($rootScope, Authentication, $state, $cookies, TokenStorage, $h
             $state.go('home');
             // $rootScope.token = JSON.parse(atob(TokenStorage.retrieve().split('.')[0]));
         } else {
-            console.log("else")
+            console.log("else");
             $rootScope.authenticated = false;
             $state.go('loginState');
         }

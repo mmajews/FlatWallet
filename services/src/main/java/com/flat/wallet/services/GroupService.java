@@ -42,17 +42,17 @@ public class GroupService {
 	}
 
 	public List<Group> getGroups() throws Exception {
-		User currentUser = userRepository.findById(getCurrentUser().getId());
-		return currentUser.getGroups();
+		return getCurrentUser().getGroups();
 	}
 
 	public Group createNewGroup(String newGroupName) throws Exception {
 		User currentUser = getCurrentUser();
+		currentUser = userRepository.findById(currentUser.getId());
 		Group group = new Group(currentUser);
 		group.setName(newGroupName);
+		group.addParticipant(currentUser);
 		groupRepository.save(group);
 
-		currentUser = userRepository.findById(currentUser.getId());
 		currentUser.getGroups().add(group);
 		userService.updateUserDetails(currentUser);
 		return group;
@@ -65,7 +65,7 @@ public class GroupService {
 			//// FIXME: 05.06.16 do something about exceptions
 			throw new Exception("You are not permitted to view this site");
 		}
-		return currentUser;
+		return userRepository.findById(currentUser.getId());
 	}
 
 	public void addParticipantToGroup(Long groupId, Long userId) throws Exception {

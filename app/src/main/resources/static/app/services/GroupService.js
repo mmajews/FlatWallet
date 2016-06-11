@@ -13,5 +13,13 @@ app.service('GroupService', function ($http, $cookies) {
             url: 'api/group/all',
             headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
         }).then(success, failure);
+    };
+    
+    this.getGroup = function (groupId, success, failure) {
+        $http({
+            method: 'GET',
+            url: 'api/group/'+ groupId,
+            headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
+        }).then(success, failure);
     }
 });

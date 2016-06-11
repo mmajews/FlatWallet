@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<title>Title</title>-->
+</head>
+<body>
+<div id="wrapper">
+    <div id="main">
+        <article class="post">
+            <h1>Group name : {{currentGroup.name}}</h1>
+        </article>
+        <article class="post">
+            <h1>Participants:</h1>
+            <footer>
+                <button style="margin-left:1em" ng-repeat="participant in currentGroup.groupParticipants">
+                    {{participant.username}}
+                </button>
+            </footer>
+        </article>
+        <article class="post">
+            <h1>Last transactions:</h1>
+            <section>
+                <form class="input">
+                </form>
+            </section>
+        </article>
+        <article class="post">
+            <pre>{{currentGroup | json }}</pre>
+        </article>
+    </div>
+</div>
+</body>
+</html>
