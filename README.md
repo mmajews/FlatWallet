@@ -24,3 +24,8 @@ and run the server.
 Server build status:
 
 ![alt tag](https://travis-ci.com/mmajews/FlatWallet.svg?token=r2WavVgpdwDCDJYpMPqG&branch=master)
+
+Please configure git:
+```
+git config branch.autosetuprebase
+```
