@@ -24,15 +24,19 @@ public class Group extends EntityWithId {
 
 	private String name;
 
+    @OneToOne
+    private ShoppingList groupShoppingList;
+
 	@ManyToMany
 	private List<User> groupParticipants = new ArrayList<>();
 
 	public Group() {
 	};
 
-	public Group(User user) {
-		groupFounder = user;
-	}
+	public Group(User user, ShoppingList shoppingList) {
+        groupFounder = user;
+        groupShoppingList = shoppingList;
+    }
 
 	public void addParticipant(User user) {
 		Preconditions.checkNotNull(user, "User cannot be null while adding to group");
@@ -64,4 +68,21 @@ public class Group extends EntityWithId {
 	public List<User> getGroupParticipants() {
 		return groupParticipants;
 	}
+
+    public ShoppingList getGroupShoppingList() {
+        return groupShoppingList;
+    }
+
+    public void setGroupParticipants(List<User> groupParticipants) {
+        this.groupParticipants = groupParticipants;
+    }
+
+    public void setGroupShoppingList(ShoppingList groupShoppingList) {
+        this.groupShoppingList = groupShoppingList;
+    }
+
+    public void setGroupFounder(User groupFounder) {
+        this.groupFounder = groupFounder;
+    }
 }
+

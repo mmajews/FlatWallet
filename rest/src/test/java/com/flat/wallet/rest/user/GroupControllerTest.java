@@ -1,6 +1,7 @@
 package com.flat.wallet.rest.user;
 
 import com.flat.wallet.model.Group;
+import com.flat.wallet.model.ShoppingList;
 import com.flat.wallet.model.User;
 import com.flat.wallet.rest.GroupController;
 import com.flat.wallet.services.GroupService;
@@ -40,7 +41,8 @@ public class GroupControllerTest {
 	@Test
 	public void shouldGetGroupById() throws Exception {
 		User user = new User();
-		Group expectedGroup = new Group(user);
+		ShoppingList shoppingList = new ShoppingList();
+		Group expectedGroup = new Group(user,shoppingList);
 		when(groupService.getGroupById(10L)).thenReturn(expectedGroup);
 
 		//FIXME to be implemented
