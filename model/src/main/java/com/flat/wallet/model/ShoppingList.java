@@ -1,5 +1,6 @@
 package com.flat.wallet.model;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -7,9 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Marcin on 13.06.2016.
- */
+
 @Entity
 @Table(name = "shoppinglists")
 public class ShoppingList extends EntityWithId {
@@ -18,6 +17,7 @@ public class ShoppingList extends EntityWithId {
     @OneToOne(mappedBy="groupShoppingList")
     private Group listOwningGroup;
 
+    @ElementCollection
     private List<String> itemsList = new ArrayList<>();
 
     public ShoppingList(Group listOwningGroup) {

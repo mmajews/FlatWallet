@@ -1,18 +1,16 @@
 package com.flat.wallet.repositories;
 
-import com.flat.wallet.model.Group;
 import com.flat.wallet.model.ShoppingList;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-/**
- * Created by Marcin on 13.06.2016.
- */
 public interface ShoppingListRepository extends JpaRepository<ShoppingList, Long> {
 
     ShoppingList findById(Long id);
 
-    ShoppingList findByGroup(Group group);
+    //// FIXME: 15.06.2016 actually it is not group in ShoppingList, names matter
+    //    ShoppingList findByGroup(Group group);
 
-    ShoppingList fingByGroupId(Long id);
+    //// FIXME: It is not possible i believe, to query in this matter
+    //    ShoppingList findByGroupId(Long id);
 }
 
