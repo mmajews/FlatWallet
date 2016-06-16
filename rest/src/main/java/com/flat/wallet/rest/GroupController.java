@@ -35,4 +35,15 @@ public class GroupController {
 		return groupService.getGroupById(groupId);
 	}
 
+	@RequestMapping(value = "{groupId}/shoppinglist", method = RequestMethod.GET)
+    public List<String> getGroupShoppingList(@PathVariable("groupId") Long groupId) throws Exception {
+        return groupService.getGroupShoppingList(groupId);
+    }
+
+    @RequestMapping(value = "{groupId}/addItemToList", method = RequestMethod.POST)
+    public void addItemToShoppingList(@PathVariable("groupId") Long groupId, @RequestParam(name = "item") String item) throws Exception {
+        groupService.addItemToGroupShoppingList(groupId, item);
+    }
+
+
 }

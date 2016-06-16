@@ -95,4 +95,14 @@ public class GroupService {
 
     }
 
+	public void addItemToGroupShoppingList(Long groupId, String item) throws Exception {
+		Group group = getGroupById(groupId);
+
+		if (group == null) {
+			throw new EntityNotFound(Group.class, groupId);
+		}
+
+		group.addItemToList(item);
+	}
+
 }

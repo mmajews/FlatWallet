@@ -22,4 +22,12 @@ app.service('GroupService', function ($http, $cookies) {
             headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
         }).then(success, failure);
     }
+
+    this.getGroupShoppingList = function (groupId, success, failure) {
+        $http({
+            method: 'GET',
+            url: 'api/group/' + groupId + 'shoppinglist',
+            headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
+        }).then(success, failure);
+    }
 });
