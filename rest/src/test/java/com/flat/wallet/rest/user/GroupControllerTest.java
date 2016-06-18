@@ -41,8 +41,8 @@ public class GroupControllerTest {
 	@Test
 	public void shouldGetGroupById() throws Exception {
 		User user = new User();
-		ShoppingList shoppingList = new ShoppingList();
-		Group expectedGroup = new Group(user,shoppingList);
+		Group expectedGroup = new Group(user);
+		ShoppingList shoppingList = new ShoppingList(expectedGroup);
 		when(groupService.getGroupById(10L)).thenReturn(expectedGroup);
 
 		//FIXME to be implemented

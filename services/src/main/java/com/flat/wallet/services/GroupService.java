@@ -2,7 +2,6 @@ package com.flat.wallet.services;
 
 import com.flat.wallet.exceptions.EntityNotFound;
 import com.flat.wallet.model.Group;
-import com.flat.wallet.model.ShoppingList;
 import com.flat.wallet.model.User;
 import com.flat.wallet.repositories.GroupRepository;
 import com.flat.wallet.repositories.UserRepository;
@@ -52,12 +51,10 @@ public class GroupService {
 	public Group createNewGroup(String newGroupName) throws Exception {
 		User currentUser = getCurrentUser();
 		currentUser = userRepository.findById(currentUser.getId());
-        ShoppingList shoppingList = shoppingListService.createNewShoppingList();
-		Group group = new Group(currentUser, shoppingList);
+		Group group = new Group(currentUser);
 		group.setName(newGroupName);
 		group.addParticipant(currentUser);
 		groupRepository.save(group);
-
 		currentUser.getGroups().add(group);
 		userService.updateUserDetails(currentUser);
 		return group;

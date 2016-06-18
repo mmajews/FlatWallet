@@ -1,5 +1,7 @@
 package com.flat.wallet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -13,8 +15,9 @@ import java.util.List;
 @Table(name = "shoppinglists")
 public class ShoppingList extends EntityWithId {
 
+    @OneToOne(mappedBy = "groupShoppingList", optional = false)
     @NotNull
-    @OneToOne(mappedBy="groupShoppingList")
+    @JsonIgnore
     private Group listOwningGroup;
 
     @ElementCollection
@@ -24,7 +27,7 @@ public class ShoppingList extends EntityWithId {
         this.listOwningGroup = listOwningGroup;
     }
 
-    public ShoppingList(){
+    public ShoppingList() {
 
     }
 
