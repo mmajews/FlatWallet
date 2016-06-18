@@ -34,7 +34,8 @@ var app = angular.module('flatWallet', ['ui.router', 'ngResource', 'ngCookies'])
     $stateProvider
         .state('home', {
             url: '/',
-            templateUrl: 'app/home/home.html'
+            templateUrl: 'app/home/home.html',
+            controller: 'HomeCtrl'
         })
         .state('loginState', {
             url: '/loginState',

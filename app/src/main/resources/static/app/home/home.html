@@ -69,31 +69,20 @@
                     <header>
                         <h3>Lista zakupów</h3>
                        <ul>
-                           <li>
-                               <h2>
-                                  Domestos
-                               </h2>
-                           </li>
-                           <li>
-                               <h2>
-                                    Patyczki do uszu
-                               </h2>
-                           </li>
-                           <li>
-                               <h2>
-                                    Herbata
-                               </h2>
-                           </li>
-                           <li>
-                               <h2>
-                                   Kawa
-                               </h2>
+                           <li ng-repeat="item in currentGroup.groupShoppingList.itemsList">
+                               <h2>{{item}}</h2>
                            </li>
                        </ul>
                     </header>
                 </article>
             </li>
         </ul>
+
+        <form class="input">
+            <input ng-model="newItem" type="text" placeholder="Add item to list"/>
+            <button type="submit" ng-click="addItemToList()">Add</button>
+        </form>
+
     </section>
 
     <!-- Footer -->

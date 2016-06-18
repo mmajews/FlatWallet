@@ -26,7 +26,15 @@ app.service('GroupService', function ($http, $cookies) {
     this.getGroupShoppingList = function (groupId, success, failure) {
         $http({
             method: 'GET',
-            url: 'api/group/' + groupId + 'shoppinglist',
+            url: 'api/group/' + groupId + '/shoppinglist',
+            headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
+        }).then(success, failure);
+    }
+
+    this.addItemToShoppingList = function (groupId, item,  success, failure) {
+        $http({
+            method: 'POST',
+            url: 'api/group/' + groupId + '/addItemToList?item=' + item,
             headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
         }).then(success, failure);
     }

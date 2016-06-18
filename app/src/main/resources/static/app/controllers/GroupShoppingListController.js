@@ -3,12 +3,13 @@ app.controller('ShoppingListCtrl', function ($scope, $rootScope, GroupService) {
     $scope.shoppingList = [];
 
     $scope.success = function (data) {
-        // $scope.shoppingList = data.data;
-        console.log(data);
+        // console.log(data);
+        console.log("succes");
     };
 
     $scope.failure = function (data) {
-        console.log(data);
+        // console.log(data);
+        console.log("failure");
     };
 
     $scope.getList = function () {
