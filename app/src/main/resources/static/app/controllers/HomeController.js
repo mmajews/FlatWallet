@@ -2,9 +2,10 @@ app.controller('HomeCtrl', function ($scope, $rootScope, $http, $cookies, TokenS
     $scope.newItem = "";
 
     $scope.successCreating = function (data) {
-        // GroupService.getAllGroups(function (data) {
-        //     $scope.allGroups = data.data;
-        // }, $scope.failure);
+        GroupService.getGroup($scope.currentGroup.id, function (data) {
+            $scope.currentGroup = data.data;
+            $rootScope.currentGroup = data.data;
+        }, $scope.failure);
     };
 
     $scope.success = function (data) {
