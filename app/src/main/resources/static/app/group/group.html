@@ -22,6 +22,20 @@
             </footer>
         </article>
         <article class="post">
+            <h1>Lista zakupów</h1>
+                <ul>
+                    <li ng-repeat="item in currentGroup.groupShoppingList.itemsList">
+                        <h2>{{item}}</h2>
+                    </li>
+                </ul>
+
+            <form class="input">
+                <input ng-model="newItem" type="text" placeholder="Add item to list"/>
+                <button type="submit" ng-click="addItemToList()">Add</button>
+            </form>
+
+        </article>
+        <article class="post">
             <h1>Last transactions:</h1>
             <section>
                 <form class="input">
