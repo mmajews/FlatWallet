@@ -11,6 +11,7 @@ app.controller('GroupCtrl', function ($scope, $rootScope, $stateParams, TokenSto
         GroupService.getGroup($scope.currentGroup.id, function (data) {
             $scope.currentGroup = data.data;
             $rootScope.currentGroup = data.data;
+            $scope.newItem = "";
         }, $scope.failure);
     };
 
@@ -20,6 +21,7 @@ app.controller('GroupCtrl', function ($scope, $rootScope, $stateParams, TokenSto
 
     $scope.failure = function (data) {
         console.log(data);
+        $scope.newItem = "";
     };
 
     $scope.addItemToList = function () {

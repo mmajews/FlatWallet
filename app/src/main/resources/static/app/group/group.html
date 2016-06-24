@@ -24,7 +24,7 @@
         <article class="post">
             <h1>Lista zakupów</h1>
                 <ul>
-                    <li ng-repeat="item in currentGroup.groupShoppingList.itemsList">
+                    <li ng-repeat="item in currentGroup.groupShoppingList.itemsList track by $index">
                         <h2>{{item}}</h2>
                     </li>
                 </ul>

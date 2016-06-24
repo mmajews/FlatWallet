@@ -2,9 +2,10 @@ app.controller('HomeCtrl', function ($scope, $rootScope, $http, $cookies, TokenS
     $scope.newItem = "";
 
     $scope.successCreating = function (data) {
-        GroupService.getGroup($scope.currentGroup.id, function (data) {
+        GroupService.getGroup($rootScope.currentGroup.id, function (data) {
             $scope.currentGroup = data.data;
             $rootScope.currentGroup = data.data;
+            $scope.newItem = "";
         }, $scope.failure);
     };
 
@@ -17,7 +18,7 @@ app.controller('HomeCtrl', function ($scope, $rootScope, $http, $cookies, TokenS
     };
 
     $scope.addItemToList = function () {
-        GroupService.addItemToShoppingList($scope.currentGroup.id, $scope.newItem, $scope.successCreating, $scope.failure);
+        GroupService.addItemToShoppingList($rootScope.currentGroup.id, $scope.newItem, $scope.successCreating, $scope.failure);
         console.log("added " + $scope.newItem);
     };
 
