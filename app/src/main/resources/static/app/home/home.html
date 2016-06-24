@@ -69,7 +69,7 @@
                     <header>
                         <h3>Lista zakupów</h3>
                        <ul>
-                           <li ng-repeat="item in currentGroup.groupShoppingList.itemsList">
+                           <li ng-repeat="item in currentGroup.groupShoppingList.itemsList track by $index">
                                <h2>{{item}}</h2>
                            </li>
                        </ul>
