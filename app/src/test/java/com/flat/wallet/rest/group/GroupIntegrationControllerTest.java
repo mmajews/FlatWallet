@@ -1,20 +1,15 @@
 package com.flat.wallet.rest.group;
 
-import com.flat.wallet.app.token.TokenAuthenticationService;
 import com.flat.wallet.model.Group;
 import com.flat.wallet.model.User;
 import com.flat.wallet.model.auth.UserRole;
 import com.flat.wallet.repositories.GroupRepository;
-import com.flat.wallet.repositories.UserRepository;
 import com.flat.wallet.rest.DefaultSpringRestTest;
 import com.jayway.restassured.RestAssured;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,20 +17,10 @@ import java.util.List;
 import static com.jayway.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 public class GroupIntegrationControllerTest extends DefaultSpringRestTest {
 
 	@Autowired
 	private GroupRepository groupRepository;
-
-	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
-	private TokenAuthenticationService tokenAuthenticationService;
-
-	@Value("${local.server.port}")
-	private int port;
 
 	private static String userToken = "";
 	private Group group;
