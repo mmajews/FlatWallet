@@ -2,8 +2,10 @@ package com.flat.wallet.services;
 
 import com.flat.wallet.exceptions.EntityNotFound;
 import com.flat.wallet.model.Group;
+import com.flat.wallet.model.ListItem;
 import com.flat.wallet.model.User;
 import com.flat.wallet.repositories.GroupRepository;
+import com.flat.wallet.repositories.ListItemRepository;
 import com.flat.wallet.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,9 @@ public class GroupService {
 
 	@Autowired
 	private ShoppingListService shoppingListService;
+
+	@Autowired
+	private ListItemRepository listItemRepository;
 
 	@Transactional(readOnly = true)
 	public Group getGroupById(Long id) throws Exception {
@@ -83,13 +88,28 @@ public class GroupService {
 		group.addParticipant(user);
 	}
 
-    public List<String> getGroupShoppingList(Long groupID) throws Exception{
+    public List<ListItem> getGroupShoppingList(Long groupID) throws Exception{
         Group group = getGroupById(groupID);
         if (group == null) {
             throw new EntityNotFound(Group.class, groupID);
         }
         return group.getGroupShoppingList().getItemsList();
+    }
 
+	public List<ListItem> getGroupShoppingListToBeBought(Long groupID) throws Exception{
+        Group group = getGroupById(groupID);
+        if (group == null) {
+            throw new EntityNotFound(Group.class, groupID);
+        }
+        return group.getGroupShoppingList().getItemsToBeBought();
+    }
+
+	public List<ListItem> getGroupShoppingListAlreadyBought(Long groupID) throws Exception{
+        Group group = getGroupById(groupID);
+        if (group == null) {
+            throw new EntityNotFound(Group.class, groupID);
+        }
+        return group.getGroupShoppingList().getItemsAlreadyBought();
     }
 
 	public void addItemToGroupShoppingList(Long groupId, String item) throws Exception {
@@ -99,7 +119,10 @@ public class GroupService {
 			throw new EntityNotFound(Group.class, groupId);
 		}
 
-		group.addItemToList(item);
+		ListItem newItem = new ListItem(item, group.getGroupShoppingList());
+		listItemRepository.save(newItem);
+		group.addItemToList(newItem);
+		groupRepository.save(group);
 	}
 
 }

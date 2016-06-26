@@ -89,7 +89,7 @@ public class Group extends EntityWithId {
 		this.groupFounder = groupFounder;
 	}
 
-	public void addItemToList(String item) {
+	public void addItemToList(ListItem item) {
 		this.groupShoppingList.addItem(item);
 	}
 }

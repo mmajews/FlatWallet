@@ -5,6 +5,8 @@ app.controller('GroupCtrl', function ($scope, $rootScope, $stateParams, TokenSto
     GroupService.getGroup($stateParams.groupId, function (data) {
         $scope.currentGroup = data.data;
         $rootScope.currentGroup = data.data;
+        console.log($rootScope.currentGroup);
+        console.log($scope.currentGroup);
     }, $scope.failure);
 
     $scope.successAdding = function (data) {
