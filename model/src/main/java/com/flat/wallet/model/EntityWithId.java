@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class EntityWithId {
+abstract class EntityWithId {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -14,5 +14,9 @@ public abstract class EntityWithId {
 
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

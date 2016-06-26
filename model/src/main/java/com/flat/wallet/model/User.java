@@ -91,7 +91,6 @@ public class User extends EntityWithId implements SocialUserDetails {
 		return authorities;
 	}
 
-	// Use Roles as external API
 	public Set<UserRole> getRoles() {
 		Set<UserRole> roles = EnumSet.noneOf(UserRole.class);
 		if (authorities != null) {

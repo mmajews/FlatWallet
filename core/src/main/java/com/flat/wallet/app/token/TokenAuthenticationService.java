@@ -28,8 +28,12 @@ public class TokenAuthenticationService {
 	public void addAuthentication(HttpServletResponse response, UserAuthentication authentication) {
 		final User user = authentication.getDetails();
 		user.setExpires(System.currentTimeMillis() + TEN_DAYS);
-		final String token = tokenHandler.createTokenForUser(user);
+		final String token = getTokenForUser(user);
 		response.addCookie(createCookieForToken(token));
+	}
+
+	public String getTokenForUser(User user) {
+		return tokenHandler.createTokenForUser(user);
 	}
 
 	public UserAuthentication getAuthentication(HttpServletRequest request) {
