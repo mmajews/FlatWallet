@@ -88,9 +88,5 @@ public class Group extends EntityWithId {
 	public void setGroupFounder(User groupFounder) {
 		this.groupFounder = groupFounder;
 	}
-
-	public void addItemToList(ListItem item) {
-		this.groupShoppingList.addItem(item);
-	}
 }
 

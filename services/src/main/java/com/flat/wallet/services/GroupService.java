@@ -3,9 +3,11 @@ package com.flat.wallet.services;
 import com.flat.wallet.exceptions.EntityNotFound;
 import com.flat.wallet.model.Group;
 import com.flat.wallet.model.ListItem;
+import com.flat.wallet.model.ShoppingList;
 import com.flat.wallet.model.User;
 import com.flat.wallet.repositories.GroupRepository;
 import com.flat.wallet.repositories.ListItemRepository;
+import com.flat.wallet.repositories.ShoppingListRepository;
 import com.flat.wallet.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +31,9 @@ public class GroupService {
 
 	@Autowired
 	private GroupRepository groupRepository;
+
+	@Autowired
+	private ShoppingListRepository shoppingListRepository;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -114,15 +119,13 @@ public class GroupService {
 
 	public void addItemToGroupShoppingList(Long groupId, String item) throws Exception {
 		Group group = getGroupById(groupId);
-
 		if (group == null) {
 			throw new EntityNotFound(Group.class, groupId);
 		}
-
-		ListItem newItem = new ListItem(item, group.getGroupShoppingList());
-		listItemRepository.save(newItem);
-		group.addItemToList(newItem);
-		groupRepository.save(group);
+		ShoppingList groupShoppingList = group.getGroupShoppingList();
+		ListItem newItem = new ListItem(item, groupShoppingList);
+		groupShoppingList.addItem(newItem);
+		shoppingListRepository.save(groupShoppingList);
 	}
 
 }

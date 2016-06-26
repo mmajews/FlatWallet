@@ -2,7 +2,12 @@ package com.flat.wallet.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +23,9 @@ public class ShoppingList extends EntityWithId {
     @JsonIgnore
     private Group listOwningGroup;
 
-    @OneToMany(mappedBy = "itemOwningShoppingList")
-    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "SHOPPING_LIST_ITEM_LIST_ID", nullable = false)
+    @NotNull
     private List<ListItem> itemsList = new ArrayList<>();
 
     public ShoppingList(Group listOwningGroup) {
@@ -27,7 +33,6 @@ public class ShoppingList extends EntityWithId {
     }
 
     public ShoppingList() {
-
     }
 
     public List<ListItem> getItemsList() {
@@ -55,16 +60,10 @@ public class ShoppingList extends EntityWithId {
     }
 
     public List<ListItem> getItemsToBeBought(){
-
-        List<ListItem> toBeBought = itemsList.stream().filter(item -> item.isBought()).collect(Collectors.toList());
-
-        return toBeBought;
+        return itemsList.stream().filter(ListItem::isBought).collect(Collectors.toList());
     }
 
     public List<ListItem> getItemsAlreadyBought(){
-
-        List<ListItem> alreadyBought = itemsList.stream().filter(item -> !item.isBought()).collect(Collectors.toList());
-
-        return alreadyBought;
+        return itemsList.stream().filter(item -> !item.isBought()).collect(Collectors.toList());
     }
 }
