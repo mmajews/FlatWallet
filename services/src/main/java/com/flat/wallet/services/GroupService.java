@@ -98,7 +98,7 @@ public class GroupService {
         if (group == null) {
             throw new EntityNotFound(Group.class, groupID);
         }
-        return group.getGroupShoppingList().getItemsList();
+        return group.getGroupShoppingList().getItemsToBeBought();
     }
 
 	public List<ListItem> getGroupShoppingListToBeBought(Long groupID) throws Exception{

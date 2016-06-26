@@ -60,7 +60,13 @@ public class ShoppingList extends EntityWithId {
     }
 
     public List<ListItem> getItemsToBeBought(){
-        return itemsList.stream().filter(ListItem::isBought).collect(Collectors.toList());
+
+        List<ListItem> list = new ArrayList<>();
+
+        for(ListItem item : itemsList) if (item.isBought()) list.add(item);
+
+        return list;
+
     }
 
     public List<ListItem> getItemsAlreadyBought(){
