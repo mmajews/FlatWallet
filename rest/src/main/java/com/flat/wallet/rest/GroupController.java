@@ -5,7 +5,11 @@ import com.flat.wallet.model.ListItem;
 import com.flat.wallet.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -15,8 +19,6 @@ public class GroupController {
 
 	@Autowired
 	private GroupService groupService;
-
-	@Autowired
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public Group createGroup(@RequestParam(name = "groupName") String groupName) throws Exception {
