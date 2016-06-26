@@ -1,6 +1,6 @@
 package com.flat.wallet.services;
 
-import com.flat.wallet.exceptions.EntityNotFound;
+import com.flat.wallet.exceptions.EntityNotFoundException;
 import com.flat.wallet.model.Group;
 import com.flat.wallet.model.User;
 import com.flat.wallet.repositories.GroupRepository;
@@ -37,6 +37,9 @@ public class GroupService {
 	@Transactional(readOnly = true)
 	public Group getGroupById(Long id) throws Exception {
 		final Group group = groupRepository.findById(id);
+		if (group == null) {
+			throw new EntityNotFoundException(Group.class, id);
+		}
 		User user = userService.getCurrentUser();
 		if (group.ifParticipant(user)) {
 			return group;
@@ -73,30 +76,30 @@ public class GroupService {
 	public void addParticipantToGroup(Long groupId, Long userId) throws Exception {
 		Group group = getGroupById(groupId);
 		if (group == null) {
-			throw new EntityNotFound(Group.class, groupId);
+			throw new EntityNotFoundException(Group.class, groupId);
 		}
 
 		User user = userService.loadUserByUserId(userId.toString());
 		if (user == null) {
-			throw new EntityNotFound(User.class, userId);
+			throw new EntityNotFoundException(User.class, userId);
 		}
 		group.addParticipant(user);
 	}
 
-    public List<String> getGroupShoppingList(Long groupID) throws Exception{
-        Group group = getGroupById(groupID);
-        if (group == null) {
-            throw new EntityNotFound(Group.class, groupID);
-        }
-        return group.getGroupShoppingList().getItemsList();
+	public List<String> getGroupShoppingList(Long groupID) throws Exception {
+		Group group = getGroupById(groupID);
+		if (group == null) {
+			throw new EntityNotFoundException(Group.class, groupID);
+		}
+		return group.getGroupShoppingList().getItemsList();
 
-    }
+	}
 
 	public void addItemToGroupShoppingList(Long groupId, String item) throws Exception {
 		Group group = getGroupById(groupId);
 
 		if (group == null) {
-			throw new EntityNotFound(Group.class, groupId);
+			throw new EntityNotFoundException(Group.class, groupId);
 		}
 
 		group.addItemToList(item);

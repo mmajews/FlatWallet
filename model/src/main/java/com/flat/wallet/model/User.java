@@ -41,7 +41,7 @@ public class User extends EntityWithId implements SocialUserDetails {
 	private String username;
 
 	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "groupParticipants")
 	private List<Group> groups = new ArrayList<>();
 
 	@Transient

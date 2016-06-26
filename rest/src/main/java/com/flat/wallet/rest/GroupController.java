@@ -3,7 +3,6 @@ package com.flat.wallet.rest;
 import com.flat.wallet.model.Group;
 import com.flat.wallet.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,11 +24,10 @@ public class GroupController {
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public List<Group> createGroup() throws Exception {
+	public List<Group> getGroups() throws Exception {
 		return groupService.getGroups();
 	}
 
-	@PreAuthorize("isAnonymous()")
 	@RequestMapping(value = "{groupId}", method = RequestMethod.GET)
 	public Group getGroupById(@PathVariable("groupId") Long groupId) throws Exception {
 		return groupService.getGroupById(groupId);
