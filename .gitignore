@@ -21,3 +21,4 @@ hs_err_pid*
 *.log
 *.concat.js
 /backend/app/target
+/app/src/main/resources/application.properties

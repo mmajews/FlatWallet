@@ -1,5 +1,6 @@
 app.controller('GroupCtrl', function ($scope, $rootScope, $stateParams, TokenStorage, GroupService) {
     $scope.newItem = "";
+    $scope.boughtItems = [];
 
 
     GroupService.getGroup($stateParams.groupId, function (data) {
@@ -18,7 +19,7 @@ app.controller('GroupCtrl', function ($scope, $rootScope, $stateParams, TokenSto
     };
 
     $scope.success = function (data) {
-        console.log(data);
+        // console.log(data);
     };
 
     $scope.failure = function (data) {
@@ -31,4 +32,10 @@ app.controller('GroupCtrl', function ($scope, $rootScope, $stateParams, TokenSto
         console.log("added " + $scope.newItem);
     };
 
+    $scope.checkAsBought = function () {
+        for (i = 0; i < $scope.boughtItems.length; i++) {
+            GroupService.setItemAsBought($scope.boughtItems[i], $scope.successAdding, $scope.failure);
+        }
+        $scope.boughtItems = [];
+    }
 });

@@ -5,11 +5,7 @@ import com.flat.wallet.model.ListItem;
 import com.flat.wallet.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +15,8 @@ public class GroupController {
 
 	@Autowired
 	private GroupService groupService;
+
+	@Autowired
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public Group createGroup(@RequestParam(name = "groupName") String groupName) throws Exception {
@@ -55,6 +53,11 @@ public class GroupController {
     public void addItemToShoppingList(@PathVariable("groupId") Long groupId, @RequestParam(name = "item") String item) throws Exception {
         groupService.addItemToGroupShoppingList(groupId, item);
     }
+
+	@RequestMapping(value = "/setItemAsBought", method = RequestMethod.POST)
+	public void setItemAsBought(@RequestParam(name = "itemId") Long itemId) throws Exception {
+		groupService.setItemAsBought(itemId);
+	}
 
 
 }

@@ -1706,7 +1706,6 @@ input[type="button"],
 button,
 .button {
     -moz-appearance: none;
-    -webkit-appearance: none;
     -ms-appearance: none;
     appearance: none;
     -moz-transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
@@ -1887,7 +1886,6 @@ input[type="tel"],
 select,
 textarea {
     -moz-appearance: none;
-    -webkit-appearance: none;
     -ms-appearance: none;
     appearance: none;
     background: rgba(160, 160, 160, 0.075);
@@ -1968,7 +1966,6 @@ textarea {
 input[type="checkbox"],
 input[type="radio"] {
     -moz-appearance: none;
-    -webkit-appearance: none;
     -ms-appearance: none;
     appearance: none;
     display: block;

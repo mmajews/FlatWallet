@@ -128,4 +128,10 @@ public class GroupService {
 		shoppingListRepository.save(groupShoppingList);
 	}
 
+	public void setItemAsBought(Long itemId) throws Exception {
+		ListItem item = listItemRepository.findById(itemId);
+		item.itemBought();
+		listItemRepository.save(item);
+	}
+
 }
