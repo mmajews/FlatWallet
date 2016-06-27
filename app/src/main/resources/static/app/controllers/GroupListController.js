@@ -9,11 +9,11 @@ app.controller('GroupListCtrl', function ($scope, $rootScope, $http, $cookies, T
     };
 
     $scope.success = function (data) {
-        console.log(data);
+        // console.log(data);
     };
 
     $scope.failure = function (data) {
-        console.log(data);
+        // console.log(data);
     };
 
     $scope.createNewGroup = function () {

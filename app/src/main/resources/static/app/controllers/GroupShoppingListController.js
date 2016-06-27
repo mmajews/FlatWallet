@@ -4,12 +4,12 @@ app.controller('ShoppingListCtrl', function ($scope, $rootScope, GroupService) {
 
     $scope.success = function (data) {
         // console.log(data);
-        console.log("succes");
+        // console.log("succes");
     };
 
     $scope.failure = function (data) {
         // console.log(data);
-        console.log("failure");
+        // console.log("failure");
     };
 
     $scope.getList = function () {

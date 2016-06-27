@@ -97,20 +97,21 @@ public class GroupService {
 		group.addParticipant(user);
 	}
 
-	public List<String> getGroupShoppingList(Long groupID) throws Exception {
-		Group group = getGroupById(groupID);
-		if (group == null) {
-			throw new EntityNotFoundException(Group.class, groupID);
-		}
-		return group.getGroupShoppingList().getItemsList();
+//	public List<String> getGroupShoppingList(Long groupID) throws Exception {
+//		Group group = getGroupById(groupID);
+//		if (group == null) {
+//			throw new EntityNotFoundException(Group.class, groupID);
+//		}
+//		return group.getGroupShoppingList().getItemsList();
+//	}
+
     public List<ListItem> getGroupShoppingList(Long groupID) throws Exception{
         Group group = getGroupById(groupID);
         if (group == null) {
-            throw new EntityNotFound(Group.class, groupID);
+            throw new EntityNotFoundException(Group.class, groupID);
         }
 //        return group.getGroupShoppingList().getItemsToBeBought();
 
-	}
 		List<ListItem> allItems = group.getGroupShoppingList().getItemsList();
 		List<ListItem> itemsToBeBought = new ArrayList<>();
 		for (ListItem item : allItems) {

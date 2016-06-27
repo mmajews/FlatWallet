@@ -19,7 +19,7 @@ app.controller('AuthCtrl', function ($scope, $rootScope, $http, $cookies, TokenS
 
     $scope.logout = function () {
         // Just clear the local storage
-        console.log("Logging out");
+        // console.log("Logging out");
         TokenStorage.clear();
         $rootScope.authenticated = false;
         $rootScope.username = null;

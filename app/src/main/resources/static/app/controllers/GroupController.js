@@ -37,24 +37,23 @@ app.controller('GroupCtrl', function ($scope, $rootScope, $stateParams, TokenSto
     };
 
     $scope.success = function (data) {
-        console.log(data);
+        // console.log(data);
     };
 
     $scope.failure = function (data) {
         // console.log(data);
         // $scope.newItem = "";
-        console
     };
 
     $scope.addItemToList = function () {
         GroupService.addItemToShoppingList($scope.currentGroup.id, $scope.newItem, $scope.successAdding, $scope.failure);
-        console.log("added " + $scope.newItem);
+        // console.log("added " + $scope.newItem);
     };
 
     $scope.checkAsBought = function () {
         for (i = 0; i < $scope.boughtItems.length; i++) {
             GroupService.setItemAsBought($scope.boughtItems[i], $scope.successBuying, $scope.failure);
-            console.log($scope.boughtItems[i] + " bought ");
+            // console.log($scope.boughtItems[i] + " bought ");
         }
         $scope.boughtItems = [];
     }

@@ -60,21 +60,21 @@ app.run(function ($rootScope, Authentication, $state, $cookies, TokenStorage, $h
     //     TokenStorage.store(authCookie);
     //     delete $cookies['AUTH-TOKEN'];
     // }
-    console.log($cookies.get('AUTH-TOKEN'));
+    // console.log($cookies.get('AUTH-TOKEN'));
     $http({
         method: 'GET', url: '/api/user/current', headers: {
             'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')
         }
     }).success(function (user) {
-        console.log(user);
+        // console.log(user);
         if (user.username) {
             $rootScope.authenticated = true;
             $rootScope.username = user.username;
-            console.log("if");
+            // console.log("if");
             $state.go('home');
             // $rootScope.token = JSON.parse(atob(TokenStorage.retrieve().split('.')[0]));
         } else {
-            console.log("else");
+            // console.log("else");
             $rootScope.authenticated = false;
             $state.go('loginState');
         }
@@ -83,7 +83,7 @@ app.run(function ($rootScope, Authentication, $state, $cookies, TokenStorage, $h
 
 app.controller('IndexCtrl', function ($rootScope, $cookies, TokenStorage) {
     $rootScope.logout = function () {
-        console.log("Logout");
+        // console.log("Logout");
         // Just clear the local storage
         TokenStorage.clear();
         $rootScope.authenticated = false;
