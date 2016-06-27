@@ -17,6 +17,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -98,7 +99,15 @@ public class GroupService {
         if (group == null) {
             throw new EntityNotFound(Group.class, groupID);
         }
-        return group.getGroupShoppingList().getItemsToBeBought();
+//        return group.getGroupShoppingList().getItemsToBeBought();
+
+		List<ListItem> allItems = group.getGroupShoppingList().getItemsList();
+		List<ListItem> itemsToBeBought = new ArrayList<>();
+		for (ListItem item : allItems) {
+			ListItem tmpItem = listItemRepository.findById(item.getId());
+			if (tmpItem != null && !tmpItem.isBought()) itemsToBeBought.add(tmpItem);
+		}
+		return itemsToBeBought;
     }
 
 	public List<ListItem> getGroupShoppingListToBeBought(Long groupID) throws Exception{
@@ -130,8 +139,18 @@ public class GroupService {
 
 	public void setItemAsBought(Long itemId) throws Exception {
 		ListItem item = listItemRepository.findById(itemId);
+//		Group group = groupRepository.findById(groupId);
+
+//		ShoppingList shoppingList = item.getItemOwningShoppingList();
+
+		if (itemId == null) {
+			throw new EntityNotFound(Group.class, itemId);
+		}
+
 		item.itemBought();
-		listItemRepository.save(item);
+//		shoppingList.deleteItem(item);
+//		shoppingListRepository.save(shoppingList);
+//		listItemRepository.delete(item);
 	}
 
 }

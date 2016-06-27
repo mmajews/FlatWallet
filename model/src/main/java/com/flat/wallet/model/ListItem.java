@@ -29,7 +29,7 @@ public class ListItem extends EntityWithId {
 		this.bought = true;
 	}
 
-	boolean isBought() {
+	public boolean isBought() {
 		return bought;
 	}
 

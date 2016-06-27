@@ -47,9 +47,18 @@ public class ShoppingList extends EntityWithId {
         itemsList.add(item);
     }
 
-//    public boolean deleteItem(String item){
-//        return itemsList.remove(item);
-//    }
+    public void deleteItem(ListItem item) {
+        itemsList.remove(item);
+    }
+
+    public void setItemAsBoughtById(Long Id){
+        for (ListItem item : itemsList){
+            if (item.getId() == Id) {
+                item.itemBought();
+                return;
+            }
+        }
+    }
 
     public Group getListOwningGroup() {
         return listOwningGroup;
@@ -63,13 +72,12 @@ public class ShoppingList extends EntityWithId {
 
         List<ListItem> list = new ArrayList<>();
 
-        for(ListItem item : itemsList) if (item.isBought()) list.add(item);
+        for(ListItem item : itemsList) if (!item.isBought()) list.add(item);
 
         return list;
-
     }
 
     public List<ListItem> getItemsAlreadyBought(){
-        return itemsList.stream().filter(item -> !item.isBought()).collect(Collectors.toList());
+        return itemsList.stream().filter(item -> item.isBought()).collect(Collectors.toList());
     }
 }

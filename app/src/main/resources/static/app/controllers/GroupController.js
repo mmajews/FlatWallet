@@ -37,12 +37,13 @@ app.controller('GroupCtrl', function ($scope, $rootScope, $stateParams, TokenSto
     };
 
     $scope.success = function (data) {
-        // console.log(data);
+        console.log(data);
     };
 
     $scope.failure = function (data) {
-        console.log(data);
-        $scope.newItem = "";
+        // console.log(data);
+        // $scope.newItem = "";
+        console
     };
 
     $scope.addItemToList = function () {
@@ -58,8 +59,9 @@ app.controller('GroupCtrl', function ($scope, $rootScope, $stateParams, TokenSto
         $scope.boughtItems = [];
     }
     
-    $scope.test = function () {
-        console.log($scope.shoppingList);
+    $scope.testIt = function () {
+        // console.log($scope.shoppingList);
+        GroupService.getGroupShoppingList($scope.currentGroup.id, $scope.success, $scope.failure);
         
     }
 });
