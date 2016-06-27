@@ -9,9 +9,6 @@
     <div id="main">
         <article class="post">
             <h1>Group name : {{currentGroup.name}}</h1>
-            <ul>
-                <pre ng-repeat="item in currentGroup.groupShoppingList"></pre>
-            </ul>
         </article>
         <article class="post">
             <h1>Participants:</h1>
@@ -23,16 +20,21 @@
         </article>
         <article class="post">
             <h1>Lista zakupów</h1>
-                <ul>
-                    <li ng-repeat="item in currentGroup.groupShoppingList.itemsList track by $index">
-                        <h2>{{item}}</h2>
-                    </li>
-                </ul>
+                <!--<ul>-->
+                    <!--<li ng-repeat="item in currentGroup.groupShoppingList.itemsList track by $index">-->
+                        <!--<input type="checkbox"> <h2>{{item.name}}</h2>-->
+                    <!--</li>-->
+                <!--</ul>-->
+                <label ng-repeat="item in shoppingList">
+                    <input type="checkbox" checklist-model="boughtItems" checklist-value="item.id"> <label> {{item.name}} </label>
+                </label>
 
             <form class="input">
                 <input ng-model="newItem" type="text" placeholder="Add item to list"/>
-                <button type="submit" ng-click="addItemToList()">Add</button>
             </form>
+            <button type="submit" ng-click="addItemToList()">Add</button>
+            <button type="submit" ng-click="checkAsBought()">Bought</button>
+            <!--<button type="submit" ng-click="testIt()">Test</button>-->
 
         </article>
         <article class="post">

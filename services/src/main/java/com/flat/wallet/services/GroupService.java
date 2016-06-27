@@ -2,8 +2,12 @@ package com.flat.wallet.services;
 
 import com.flat.wallet.exceptions.EntityNotFoundException;
 import com.flat.wallet.model.Group;
+import com.flat.wallet.model.ListItem;
+import com.flat.wallet.model.ShoppingList;
 import com.flat.wallet.model.User;
 import com.flat.wallet.repositories.GroupRepository;
+import com.flat.wallet.repositories.ListItemRepository;
+import com.flat.wallet.repositories.ShoppingListRepository;
 import com.flat.wallet.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +17,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,10 +34,16 @@ public class GroupService {
 	private GroupRepository groupRepository;
 
 	@Autowired
+	private ShoppingListRepository shoppingListRepository;
+
+	@Autowired
 	private UserRepository userRepository;
 
 	@Autowired
 	private ShoppingListService shoppingListService;
+
+	@Autowired
+	private ListItemRepository listItemRepository;
 
 	@Transactional(readOnly = true)
 	public Group getGroupById(Long id) throws Exception {
@@ -92,17 +103,64 @@ public class GroupService {
 			throw new EntityNotFoundException(Group.class, groupID);
 		}
 		return group.getGroupShoppingList().getItemsList();
+    public List<ListItem> getGroupShoppingList(Long groupID) throws Exception{
+        Group group = getGroupById(groupID);
+        if (group == null) {
+            throw new EntityNotFound(Group.class, groupID);
+        }
+//        return group.getGroupShoppingList().getItemsToBeBought();
 
 	}
+		List<ListItem> allItems = group.getGroupShoppingList().getItemsList();
+		List<ListItem> itemsToBeBought = new ArrayList<>();
+		for (ListItem item : allItems) {
+			ListItem tmpItem = listItemRepository.findById(item.getId());
+			if (tmpItem != null && !tmpItem.isBought()) itemsToBeBought.add(tmpItem);
+		}
+		return itemsToBeBought;
+    }
+
+	public List<ListItem> getGroupShoppingListToBeBought(Long groupID) throws Exception{
+        Group group = getGroupById(groupID);
+        if (group == null) {
+            throw new EntityNotFoundException(Group.class, groupID);
+        }
+        return group.getGroupShoppingList().getItemsToBeBought();
+    }
+
+	public List<ListItem> getGroupShoppingListAlreadyBought(Long groupID) throws Exception{
+        Group group = getGroupById(groupID);
+        if (group == null) {
+            throw new EntityNotFoundException(Group.class, groupID);
+        }
+        return group.getGroupShoppingList().getItemsAlreadyBought();
+    }
 
 	public void addItemToGroupShoppingList(Long groupId, String item) throws Exception {
 		Group group = getGroupById(groupId);
-
 		if (group == null) {
 			throw new EntityNotFoundException(Group.class, groupId);
 		}
+		ShoppingList groupShoppingList = group.getGroupShoppingList();
+		ListItem newItem = new ListItem(item, groupShoppingList);
+		groupShoppingList.addItem(newItem);
+		shoppingListRepository.save(groupShoppingList);
+	}
 
-		group.addItemToList(item);
+	public void setItemAsBought(Long itemId) throws Exception {
+		ListItem item = listItemRepository.findById(itemId);
+//		Group group = groupRepository.findById(groupId);
+
+//		ShoppingList shoppingList = item.getItemOwningShoppingList();
+
+		if (itemId == null) {
+			throw new EntityNotFoundException(Group.class, itemId);
+		}
+
+		item.itemBought();
+//		shoppingList.deleteItem(item);
+//		shoppingListRepository.save(shoppingList);
+//		listItemRepository.delete(item);
 	}
 
 }

@@ -1,4 +1,4 @@
-var app = angular.module('flatWallet', ['ui.router', 'ngResource', 'ngCookies']).factory('TokenStorage', function () {
+var app = angular.module('flatWallet', ['ui.router', 'ngResource', 'ngCookies', 'checklist-model']).factory('TokenStorage', function () {
     var storageKey = 'auth_token';
     return {
         store: function (token) {

@@ -38,4 +38,12 @@ app.service('GroupService', function ($http, $cookies) {
             headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
         }).then(success, failure);
     }
+    
+    this.setItemAsBought = function (itemId, success, failure) {
+        $http({
+            method: 'POST',
+            url: 'api/group/setItemAsBought?itemId=' + itemId,
+            headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
+        }).then(success, failure);
+    }
 });
