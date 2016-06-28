@@ -7,8 +7,6 @@ app.controller('GroupCtrl', function ($scope, $rootScope, $stateParams, TokenSto
     GroupService.getGroup($stateParams.groupId, function (data) {
         $scope.currentGroup = data.data;
         $rootScope.currentGroup = data.data;
-        // console.log($rootScope.currentGroup);
-        // console.log($scope.currentGroup);
     }, $scope.failure);
 
     GroupService.getGroupShoppingList($stateParams.groupId, function (data) {
@@ -18,19 +16,19 @@ app.controller('GroupCtrl', function ($scope, $rootScope, $stateParams, TokenSto
 
 
     $scope.successAdding = function (data) {
-        GroupService.getGroup($scope.currentGroup.id, function (data) {
+        GroupService.getGroup($stateParams.groupId, function (data) {
             $scope.currentGroup = data.data;
             $rootScope.currentGroup = data.data;
             $scope.newItem = "";
         }, $scope.failure);
 
-        GroupService.getGroupShoppingList($scope.currentGroup.id, function (data) {
+        GroupService.getGroupShoppingList($stateParams.groupId, function (data) {
             $scope.shoppingList = data.data;
         }, $scope.failure)
     };  
     
     $scope.successBuying = function (data) {
-        GroupService.getGroupShoppingList($scope.currentGroup.id, function (data) {
+        GroupService.getGroupShoppingList($stateParams.groupId, function (data) {
             $scope.shoppingList = data.data;
         }, $scope.failure)
         
@@ -46,7 +44,7 @@ app.controller('GroupCtrl', function ($scope, $rootScope, $stateParams, TokenSto
     };
 
     $scope.addItemToList = function () {
-        GroupService.addItemToShoppingList($scope.currentGroup.id, $scope.newItem, $scope.successAdding, $scope.failure);
+        GroupService.addItemToShoppingList($stateParams.groupId, $scope.newItem, $scope.successAdding, $scope.failure);
         // console.log("added " + $scope.newItem);
     };
 
@@ -56,11 +54,11 @@ app.controller('GroupCtrl', function ($scope, $rootScope, $stateParams, TokenSto
             // console.log($scope.boughtItems[i] + " bought ");
         }
         $scope.boughtItems = [];
-    }
+    };
     
     $scope.testIt = function () {
         // console.log($scope.shoppingList);
-        GroupService.getGroupShoppingList($scope.currentGroup.id, $scope.success, $scope.failure);
+        GroupService.getGroupShoppingList($stateParams.groupId, $scope.success, $scope.failure);
         
     }
 });
