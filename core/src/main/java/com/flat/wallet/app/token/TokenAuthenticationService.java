@@ -37,8 +37,6 @@ public class TokenAuthenticationService {
 	}
 
 	public UserAuthentication getAuthentication(HttpServletRequest request) {
-		// to prevent CSRF attacks we still only allow authentication using a custom HTTP header
-		// (it is up to the client to read our previously set cookie and put it in the header)
 		final String token = request.getHeader(AUTH_HEADER_NAME);
 		if (token != null) {
 			final User user = tokenHandler.parseUserFromToken(token);

@@ -41,7 +41,6 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// Set a custom successHandler on the SocialAuthenticationFilter
 		final SpringSocialConfigurer socialConfigurer = new SpringSocialConfigurer();
 		socialConfigurer.addObjectPostProcessor(new ObjectPostProcessor<SocialAuthenticationFilter>() {
 			@Override
@@ -53,7 +52,6 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 
 		http.exceptionHandling().and().anonymous().and().servletApi().and().headers().cacheControl();
 
-		//allow anonymous font and template requests
 		http.authorizeRequests().antMatchers("/").permitAll()
 				.antMatchers(
 						"/favicon.ico",
@@ -66,21 +64,16 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 						"/app/**",
 						"/api/auth/isAuthenticated", "/auth/**").permitAll()
 
-				//allow anonymous GETs to API
 				.antMatchers(HttpMethod.GET, "/api/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/loaderio-a5e1edf6d286b795bf50aa9ede571ab2/**").permitAll()
 
-				//defined Admin only API area
 				.antMatchers("/admin/**").hasRole("ADMIN")
 
-				//all other request need to be authenticated
 				.antMatchers(HttpMethod.GET, "/api/users/current/details").hasRole("USER")
 				.anyRequest().hasRole("USER").and()
 
-				// add custom authentication filter for complete stateless JWT based authentication
 				.addFilterBefore(statelessAuthenticationFilter, AbstractPreAuthenticatedProcessingFilter.class)
 
-				// apply the configuration from the socialConfigurer (adds the SocialAuthenticationFilter)
 				.apply(socialConfigurer.userIdSource(userIdSource));
 	}
 
