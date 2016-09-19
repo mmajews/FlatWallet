@@ -13,7 +13,7 @@ cd app
 mvn spring-boot:run
 ```
 In order to run app correctly you have to start h2 server (if you want to work in development mode, other databases work fine also).
-Download from[LINK](http://repo2.maven.org/maven2/com/h2database/h2/1.4.191/h2-1.4.191.jar) and run:
+Download from [LINK](http://repo2.maven.org/maven2/com/h2database/h2/1.4.191/h2-1.4.191.jar) and run:
 ```
 java -jar h2-1.4.191.jar
 ```
